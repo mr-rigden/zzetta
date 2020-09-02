@@ -27,6 +27,7 @@ def get_pages(podcast):
     return pages
 
 
+
 if __name__ == "__main__":
     site = {}
     with open(sys.argv[1]) as f:
@@ -41,3 +42,4 @@ if __name__ == "__main__":
     blog_site_generator.make_homepage(site)
     for page in site['pages']:
         blog_site_generator.make_page(page, site)
+    blog_site_generator.make_misc(site)

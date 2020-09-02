@@ -14,7 +14,7 @@
     <div class="content-body">
         {%if page.header.enclosure_url %}
             <audio controls preload="none">
-                <source src="page.header.enclosure_url" type="audio/mpeg">
+                <source src="{{page.header.enclosure_url}}" type="audio/mpeg">
                 Your browser does not support the audio element.
           </audio>
         {% endif %}

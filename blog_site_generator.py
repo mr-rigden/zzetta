@@ -1,12 +1,16 @@
 import json
 import os
+from shutil import copyfile
 import sys
 
 import dateparser
 from jinja2 import Environment, FileSystemLoader
 from slugify import slugify
 
-file_loader = FileSystemLoader('templates')
+script_path = os.path.dirname(os.path.realpath(__file__))
+
+templates = os.path.join(script_path, 'templates')
+file_loader = FileSystemLoader(templates)
 env = Environment(loader=file_loader)
 
 separator = '--------------------'
@@ -89,6 +93,37 @@ def get_related(site, page):
     return related_pages
 
 
+def make_misc(site):
+    make_sitemap(site)
+    make_robotstxt(site)
+    #cp_favicon(site)
+
+def make_sitemap(site):
+    file_path = os.path.join(site['config']['output_dir'], 'sitemap.xml')
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    template = env.get_template("sitemap.xml")
+    output = template.render(site=site)
+    with open(file_path, 'w') as f:
+        f.write(output)
+
+def make_robotstxt(site):
+    file_path = os.path.join(site['config']['output_dir'], 'robots.txt')
+    os.makedirs(os.path.dirname(file_path), exist_ok=True)
+    template = env.get_template("robots.txt")
+    output = template.render(site=site)
+    with open(file_path, 'w') as f:
+        f.write(output)
+
+def cp_favicon(site):
+    favicon = os.path.join(templates, 'favicon.ico')
+    print(favicon)
+    file_path = os.path.join(site['config']['output_dir'], 'favicon.ico')
+    if  os.path.exists(file_path):
+        pass
+    copyfile(favicon, file_path)
+
+
+
 if __name__ == "__main__":
     site = {}
     with open(sys.argv[1]) as f:
@@ -103,6 +138,7 @@ if __name__ == "__main__":
     for page in site['pages']:
         page['related_pages'] = get_related(site, page)
         make_page(page, site)
+    make_misc(site)
     
 
 
