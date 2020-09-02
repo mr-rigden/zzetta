@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+   <div class="content-header">
+        <h1>{{page.header.title}}</h1>
+        <div class='meta'>
+            <div>
+                {{ page.header.datetime.strftime('%B %-d, %Y') }}
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>
+    <div class="content-body">
+        {%if page.header.enclosure_url %}
+            <audio controls preload="none">
+                <source src="page.header.enclosure_url" type="audio/mpeg">
+                Your browser does not support the audio element.
+          </audio>
+        {% endif %}
+        {{page.body}}
+    </div>
+    <div class="content-footer">
+        {% if page.header.tags  %}
+        <div class='episodes'>
+
+            Tags:
+            {% for tag in page.header.tags %}
+                <a href="{{site.config.base_url}}/tag/{{tag}}">{{tag}}</a>{{ "," if not loop.last }}
+            {% endfor %}
+        </div>
+        {% endif%}
+
+        {% if page.related_pages  %}
+            <div class='episodes'>
+            <h3>
+                Related Pages
+            </h3>
+            {% for related in page.related_pages %}
+                <div>
+                    <h4><a href="{{site.config.base_url}}/{{related.slug}}">{{related.title}}</a><h4>
+                    <div class='meta'>
+                        <div>
+                            {{ related.datetime.strftime('%B %-d, %Y') }}
+                        </div>
+                        <div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}   

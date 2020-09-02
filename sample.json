@@ -1,0 +1,35 @@
+{
+    "content_dir":"",
+    "footer_file": "",
+    "title": "",
+    "description": "",
+    "cover_art": "",
+    "base_url": "",
+    "output_dir":"",
+    "page_type": "",
+    "rss_url": "",
+    "menu": [
+        {
+            "name": "",
+            "url": ""
+        }
+    ],
+    "primary": {
+        "title": "", 
+        "links": [
+            {
+                "name": "",
+                "url": ""
+            }
+        ]
+    },
+    "secondary": {
+        "title": "", 
+        "links": [
+            {
+                "name": "",
+                "url": ""
+            }
+        ]
+    }       
+}

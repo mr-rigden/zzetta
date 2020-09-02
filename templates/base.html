@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="">
+<head>
+  <meta charset="utf-8">
+  <title>{{site.config.title}}</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="http://test.ipsut.net/share/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="http://test.ipsut.net/share/fonts/yabasic/styles.css">
+  <link rel="stylesheet" href="http://test.ipsut.net/share/css/conrad.css?v=0.0.1">
+</head>
+<body>
+<header>
+    <nav>
+        <div class="site-title">
+            <a href="{{site.config.base_url}}">{{site.config.title}}</a>
+        </div>
+        <div class="site-hamburger">
+            <svg onclick="toggleMenu()" id="hamburger" viewBox="0 0 100 15" width="20" height="30" fill="white">
+                <rect width="100" height="15"></rect>
+                <rect y="30" width="100" height="15"></rect>
+                <rect y="60" width="100" height="15"></rect>
+            </svg>
+        </div>
+    </nav>
+    <div id='menu' class=' hidden'>
+        <ul>
+            {% for link in site.config.menu %}
+            <li>
+                <a href="{{link.url}}">{{link.name}}</a>
+            </li>
+            {% endfor %}
+     
+        </ul>
+    </div>
+</header>
+<main>
+    {% block content %}{% endblock %}
+    <div class='about'>
+        <div class="left">
+            <img src="{{site.config.cover_art}}">
+            <p>
+                {{site.config.description}}
+            </p>
+        </div>
+        <div class="right">
+            <h3>{{site.config.primary.title}}</h3>
+            <ul>
+                {% for link in site.config.primary.links %}
+                <li>
+                    <a href="{{link.url}}">{{link.name}}</a>
+                </li>
+                {% endfor %}
+
+            </ul>
+            <h3>{{site.config.secondary.title}}</h3>
+
+            <ul>
+                {% for link in site.config.secondary.links %}
+                <li>
+                    <a href="{{link.url}}">{{link.name}}</a>
+                </li>
+                {% endfor %}
+
+            </ul>
+        </div>
+    </div>
+    <div class='episodes'>
+        {% if home %}
+        <h3>
+            {{site.config.page_type}}
+        </h3>
+            {% for page in site.pages %}
+            <div>
+                <h4><a href="{{site.config.base_url}}/{{page.header.slug}}">{{ page.header.title }}</a><h4>
+                <div class='meta'>
+                    <div>
+                        {{ page.header.datetime.strftime('%B %-d, %Y') }}
+                    </div>
+                    <div>
+                        {% if page['header']['itunes:episode'] %}
+                        #{{ page['header']['itunes:episode']}}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if page %}
+        <h3>
+            Recent {{site.config.page_type}}
+        </h3>
+            {% for page in site.pages[:5] %}
+            <div>
+                <h4><a href="{{site.config.base_url}}/{{page.header.slug}}">{{ page.header.title }}</a><h4>
+                <div class='meta'>
+                    <div>
+                        {{ page.header.datetime.strftime('%B %-d, %Y') }}
+                    </div>
+                    <div>
+                        {% if page['header']['itunes:episode'] %}
+                        #{{ page['header']['itunes:episode']}}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+
+        {% if tag %}
+        <h3>
+            {{site.config.page_type}} tagged with "{{tag}}"
+        </h3>
+        {% for page in filtered_pages %}
+        <div>
+            <h4><a href="{{site.config.base_url}}/{{page.header.slug}}">{{ page.header.title }}</a><h4>
+            <div class='meta'>
+                <div>
+                    {{ page.header.datetime.strftime('%B %-d, %Y') }}
+                </div>
+                <div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% endif %}
+
+    </div>
+</main>
+<footer>
+    <div class="footer-links">
+        {% for row in site.config.footer_links %}
+        <div>
+            <h5>{{row.title}}</h5>
+            <ul>
+                {% for link in row.links %}
+                <li>
+                    <a href="{{ link.url }}">{{ link.name }}</a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endfor %}
+
+    </div>
+    <div class="copyright">
+            <h4>&#169; 2020 Jason Rigden</h4>
+            This work is licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License.</a>
+    </div>
+</footer>   
+<script>
+    function toggleMenu() {
+        var element = document.getElementById("menu").classList.toggle("hidden");
+    };
+</script>
+</body>
+</html>
