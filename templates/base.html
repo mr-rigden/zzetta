@@ -16,7 +16,7 @@
   {% endif %}
   <link rel="stylesheet" href="{{site.config.base_url}}/share/libs/normalize/8.0.1/normalize.min.css">
   <link rel="stylesheet" href="{{site.config.base_url}}/share/fonts/yabasic/styles.css">
-  <link rel="stylesheet" href="{{site.config.base_url}}/share/css/conrad.css?v=0.0.7">
+  <link rel="stylesheet" href="{{site.config.base_url}}/share/css/conrad.css?v=0.0.8">
   <link rel="icon" href="data:;base64,iVBORw0KGgo=">
 
 </head>
@@ -55,7 +55,7 @@
             </p>
         </div>
         <div class="right">
-            <h3>{{site.config.primary.title}}</h3>
+            <h2>{{site.config.primary.title}}</h2>
             <ul>
                 {% for link in site.config.primary.links %}
                 <li>
@@ -64,7 +64,7 @@
                 {% endfor %}
 
             </ul>
-            <h3>{{site.config.secondary.title}}</h3>
+            <h2>{{site.config.secondary.title}}</h2>
 
             <ul>
                 {% for link in site.config.secondary.links %}
