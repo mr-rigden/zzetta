@@ -69,6 +69,8 @@ def get_episodes(channel):
     items = channel.get('item', None)
     if items is None:
         return []
+    if type(items) is not list:
+        items = [items]
     for item in items:
         episode = get_episode(item)
         episodes.append(episode)
